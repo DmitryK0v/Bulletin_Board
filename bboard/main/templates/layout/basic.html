@@ -49,12 +49,14 @@
     <a class= "nav-link root"
         href="{% url 'main:index' %}">Main</a>
     <span class= "nav-link root font-weight-bold">Real estate</span>
-    <a class="nav-link" href="#">Housing</a>
-    <a class="nav-link" href="#">Warehouses</a>
-    <a class= "nav-link" href="#">Garages</a>
+        <a class="nav-link" href="#">Housing</a>
+        <a class="nav-link" href="#">Warehouses</a>
+        <a class= "nav-link" href="#">Garages</a>
     <span class= "nav-link root font-weight-bold" href="#">Transport</span>
-    <a class="nav-link" href="#">Passenger</a>
-    <a class="nav-link" href="#">Cargo</a>
+        <a class="nav-link" href="#">Passenger</a>
+        <a class="nav-link" href="#">Cargo</a>
+    <a class="nav-link root" href="{% url 'main:other' page='about' %}">
+        About the site</a>
     </nav>
     <section class ="col border ру-2">
     {% bootstrap_messages %}
