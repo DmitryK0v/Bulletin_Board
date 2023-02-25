@@ -21,27 +21,28 @@
 <div class= "row">
     <ul class="col nav justify-content-end border">
     <li class="nav-item">
-        <a class="nav-link" href="#">Register</a>
-    </li>
+        <a class="nav-link" href="#">Register</a></li>
+    {% if user.is_authenticated %}
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle"
             data-toggle=" dropdown"
             href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Profile</a>
         <div class="dropdown-menu" >
-            <a class="dropdown-item" href= "#">My ADS</a>
+            <a class="dropdown-item" href= "{% url 'main:profile' %}">My ADS</a>
             <a class="dropdown-item" href="#">Edit personal data</a>
             <a class="dropdown-item" href="#">Change password</a>
             <div class="dropdown-divider" ></div>
-                <a class="dropdown-iterm" href="#">Exit</a>
+                <a class="dropdown-iterm" href="{% url 'main:logout' %}">Logout</a>
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Delete</a>
         </div>
     </li>
+    {% else %}
     <li class="nav-item">
         <a class= "nav-link"
-            href="#">Entrance</a>
-    </li>
+            href="{% url 'main:login' %}">Login</a></li>
+    {% endif %}
     </ul>
 </div>
 <div class="row">
