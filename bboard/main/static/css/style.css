@@ -1,0 +1,7 @@
+{% load static %}
+header h1 {
+    background : url('{% static "img/bg2.png" %}') left / auto 100% no-repeat, url('{% static "img/bg2.png" %}')
+    right / auto 100% no-repeat;
+.root {
+    font-size: larger;
+}
