@@ -1,0 +1,8 @@
+Dear user {{ user.username }}!
+
+You have registered on the site "Bulletin Board".
+You need to complete an activation to verify your identity.
+To do this, please follow the link:
+{{ host }} {% url 'main:register_activate' sign=sign %}
+Goodbye!
+Sincerely, the administration of the site "Bulletin Board".

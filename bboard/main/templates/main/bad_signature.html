@@ -1,0 +1,11 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %} Error during activation {% endblock %}
+
+{% block content %}
+<h2>Activate</h2>
+<p>Activation of a user with that name failed.</p>
+<p><a href="{% url 'main:register' %}">Register again</a></p>
+{% endblock %}

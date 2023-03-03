@@ -4,4 +4,4 @@ from .models import AdvUser
 
 # Register your models here.
 admin.register(AdvUser)
-
+admin.register()
