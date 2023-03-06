@@ -34,13 +34,13 @@
             <div class="dropdown-divider" ></div>
                 <a class="dropdown-iterm" href="{% url 'main:logout' %}">Logout</a>
             <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'main:profile_delete' %}">Delete</a>
+                <a class="dropdown-item" href="#">Delete</a>
     </li>
-        <div class="dropdown-menu" ></div>
+        <div class="dropdown-menu"></div>
     {% else %}
     <li class="nav-item">
         <a class= "nav-link"
-            href="{% url 'main:login' %}">Login</a></li>
+            href="{% url 'main:login' %}">Login</a>
     {% endif %}
     </ul>
 </div>
