@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps
+    'easy_thumbnails',
     'main.apps.MainConfig',
-    'bootstrap4'
-
+    'bootstrap4',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,11 +126,19 @@ STATIC_URL = 'static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'main/static')
 STATICFILES_DIRS = [STATIC_DIR]
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'default': {
+            'size': (96, 96),
+            'crop': 'scale',
+        },
+    },
+}
+THUMBNAIL_BASEDIR = 'thumbnails'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

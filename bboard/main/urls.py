@@ -1,5 +1,10 @@
-from django.urls import path
 
+from django.urls import path
+from django.conf.urls.static import static
+from django.views.decorators.cache import never_cache
+from django.views.static import serve
+
+from bboard import settings
 from .views import index, other_page, BBLoginView, BBLogoutView, BBPasswordChangeView, BBPasswordResetView, BBPasswordResetDoneView, profile, ChangeUserInfoView, \
     RegisterUserView, RegisterDoneView, user_activate
 
@@ -18,3 +23,7 @@ urlpatterns = [
     path('<str:page>/', other_page, name='other'),
     path('', index, name='index'),
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+    urlpatterns += static(settings.MEDIA_URL, documet_root=settings.MEDIA_ROOT)
