@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib import admin
 
-from .models import AdvUser
+from .models import AdvUser, AdditionalImage, Ads, SubRubric, SuperRubric
 from .utilities import send_activation_notification
 
 
@@ -12,6 +12,15 @@ def send_activation_notifications(modeladmin, request, queryset):
             send_activation_notification(rec)
     modeladmin.message_user(request, 'Demand letters sent')
     send_activation_notifications.short_description = 'Send activation emails'
+
+
+class SubRubricInline(admin.TabularInline):
+    model = SubRubric
+
+
+class SuperRubricAdmin(admin.ModelAdmin):
+    exclude = ('super_rubric',)
+    inlines = (SubRubricInline,)
 
 
 class NonacativatedFilter(admin.SimpleListFilter):
@@ -50,4 +59,16 @@ class AdvUserAdmin(admin.ModelAdmin):
     actions = (send_activation_notifications,)
 
 
+class AdditionalImageInline(admin.TabularInline):
+    model = AdditionalImage
+
+
+class AdsAdmin(admin.ModelAdmin):
+    list_display = ('rubric', 'title', 'content', 'author', 'created_at')
+    fields = (('rubric', 'author',), 'title', 'content', 'price', 'contacts', 'image', 'is_active')
+    inlines = (AdditionalImageInline,)
+
+
 admin.site.register(AdvUser, AdvUserAdmin)
+admin.site.register(Ads, AdsAdmin)
+admin.site.register(SuperRubric, SuperRubricAdmin)

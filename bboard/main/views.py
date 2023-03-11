@@ -1,9 +1,11 @@
+from django.core.paginator import Paginator
 from django.core.signing import BadSignature
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponse
@@ -15,8 +17,8 @@ from django.template.loader import get_template
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView, CreateView
 
-from .forms import ChangeUserInfoForm, RegisterUserForm
-from .models import AdvUser
+from .forms import ChangeUserInfoForm, RegisterUserForm, SearchForm
+from .models import AdvUser, SubRubric, Ads
 from .utilities import signer
 
 
@@ -104,3 +106,23 @@ def user_activate(request, sign):
         user.is_activated = True
         user.save()
     return render(request, template)
+
+
+def by_rubric(request, pk):
+    rubric = get_object_or_404(SubRubric, pk=pk)
+    bbs = Ads.objects.filter(is_active=True, rubric=pk)
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        q = Q(title_icontains=keyword) | Q(content_icontains=keyword)
+        ads = Ads.filter(q)
+    else:
+        keyword = ''
+    form = SearchForm(initial={'keyword': keyword})
+    pagination = Paginator
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = pagination.get_page(page_num)
+    context = {'rubric': rubric, 'page': page, 'ads': page.object_list, 'form': form}
+    return render(request, 'main/by_rubric.html', context)

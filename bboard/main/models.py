@@ -6,8 +6,13 @@ from .utilities import get_timestamp_path
 # Create your models here.
 class AdvUser(AbstractUser):
     is_active = models.BooleanField(default=True, db_index=True, verbose_name="Have you been activated?")
-    is_activated = False
+    is_activated = models.BooleanField(default=False)
     send_messages = models.BooleanField(default=True, verbose_name="Send notifications about new comments?")
+
+    def delete(self, *args, **kwargs):
+        for ad in self.ads_set.all():
+            ad.delete()
+        super().delete(*args, **kwargs)
 
     class Meta(AbstractUser.Meta):
         pass
@@ -22,7 +27,7 @@ class Rubric(models.Model):
 
 class SuperRubricManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(super_rubric_isnull=True)
+        return super().get_queryset().filter(super_rubric__isnull=True)
 
 
 class SuperRubric(Rubric):
@@ -40,7 +45,7 @@ class SuperRubric(Rubric):
 
 class SubRubricManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(super_rubric_isnull=False)
+        return super().get_queryset().filter(super_rubric__isnull=False)
 
 
 class SubRubric(Rubric):
