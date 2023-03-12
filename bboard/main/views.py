@@ -81,7 +81,9 @@ def profile(request):
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    ads = Ads.objects.filter(is_active=True)[:10]
+    context = {'ads': ads}
+    return render(request, 'main/index.html', context)
 
 
 def other_page(request, page):
@@ -126,3 +128,10 @@ def by_rubric(request, pk):
     page = pagination.get_page(page_num)
     context = {'rubric': rubric, 'page': page, 'ads': page.object_list, 'form': form}
     return render(request, 'main/by_rubric.html', context)
+
+
+def detail(request, rubric_pk, pk):
+    ad = get_object_or_404(Ads, pk=pk)
+    ais = ad.additionalimage_set.all()
+    context = {'ad': ad, 'ais': ais}
+    return render(request, 'main/detail.html', context)

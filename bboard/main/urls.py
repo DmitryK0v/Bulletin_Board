@@ -1,12 +1,12 @@
-
+from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
 from django.views.decorators.cache import never_cache
 from django.views.static import serve
 
-from bboard import settings
-from .views import index, other_page, BBLoginView, BBLogoutView, BBPasswordChangeView, BBPasswordResetView, BBPasswordResetDoneView, profile, ChangeUserInfoView, \
-    RegisterUserView, RegisterDoneView, user_activate
+from .views import index, other_page, BBLoginView, BBLogoutView, BBPasswordChangeView, BBPasswordResetView, \
+    BBPasswordResetDoneView, profile, ChangeUserInfoView, \
+    RegisterUserView, RegisterDoneView, user_activate, by_rubric, detail
 
 app_name = 'main'
 urlpatterns = [
@@ -20,10 +20,12 @@ urlpatterns = [
     path('accounts/logout', BBLogoutView.as_view(), name='logout'),
     path('accounts/password/change/', BBPasswordChangeView.as_view(), name='password_change'),
     path('accounts/login/', BBLoginView.as_view(), name='login'),
+    path('<int:rubric_pk>/<int:pk>/', detail, name='detail'),
+    path('<int:pk>/', by_rubric, name='by_rubric'),
     path('<str:page>/', other_page, name='other'),
     path('', index, name='index'),
 ]
 
 if settings.DEBUG:
     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
-    urlpatterns += static(settings.MEDIA_URL, documet_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
