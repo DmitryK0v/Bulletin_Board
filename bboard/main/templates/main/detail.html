@@ -1,6 +1,7 @@
 {% extends "layout/basic.html" %}
-{% blосk title % }{{ bb.title }}-{{ bb.rubric.name }}{% endblock %}
-{% blосk content %}
+{% block title %}{{ bb.title }}-{{ bb.rubric.name }}{% endblock %}
+
+{% block content %}
 <div class="container-fluid mt-3">
 <div class="row">
 {% if bb.image %}
@@ -11,9 +12,9 @@
 <h2>{{ bb.title }}</h2>
 <p>{{ bb.content }}</p>
 <p class="font-weight-bold">{{ bb.price }} usd.</p>
-  <p> { { bb . contacts } } </p>>
+  <p> {{ bb.contacts }} </p>>
 <p class="text-right font-italic">Added
-  {{ bb.created at }} </p>>
+  {{ bb.created_at }} </p>>
 </div>
 </div>
 </div>

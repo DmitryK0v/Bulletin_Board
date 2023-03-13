@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
+from django.forms import inlineformset_factory
 
-from .models import AdvUser
+from .models import AdvUser, Ads, AdditionalImage
 from .apps import user_registered
 
 
@@ -80,3 +81,13 @@ class RegisterUserForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     keyword = forms.CharField(required=False, max_length=20, label='')
+
+
+class BbForm(forms.ModelForm):
+    class Meta:
+        model = Ads
+        fields = '__all__'
+        widgets = {'author': forms.HiddenInput}
+
+
+AIFormSet = inlineformset_factory(Ads, AdditionalImage, fields='__all__')

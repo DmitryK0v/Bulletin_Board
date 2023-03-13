@@ -6,7 +6,7 @@ from django.views.static import serve
 
 from .views import index, other_page, BBLoginView, BBLogoutView, BBPasswordChangeView, BBPasswordResetView, \
     BBPasswordResetDoneView, profile, ChangeUserInfoView, \
-    RegisterUserView, RegisterDoneView, user_activate, by_rubric, detail
+    RegisterUserView, RegisterDoneView, user_activate, by_rubric, detail, profile_ads_add
 
 app_name = 'main'
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('accounts/register/activate/<str:sign>/', user_activate, name='register_activate'),
     path('accounts/register/done', RegisterDoneView.as_view(), name='register_done'),
     path('accounts/register/', RegisterUserView.as_view(), name='register'),
+    path('account/profile/add', profile_ads_add, name='profile_ads_add'),
     path('accounts/profile/', profile, name='profile'),
     path('accounts/profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/logout', BBLogoutView.as_view(), name='logout'),
