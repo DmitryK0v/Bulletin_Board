@@ -15,28 +15,29 @@
     {% bootstrap_javascript jquery='slim' %}
 </head>
 <body class="container-fluid">
+<div class="background">
 <header class="mb-4">
 <h1 class="display-1 text-center">ADS</h1>
 </header>
-<div class= "row">
-    <ul class="col nav justify-content-end border">
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'main:register' %}">Register</a></li>
-    {% if user.is_authenticated %}
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle"
-            data-toggle=" dropdown"
-            href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">Profile</a>
-            <a class="dropdown-item" href= "{% url 'main:profile' %}">My ADS</a>
-            <a class="dropdown-item" href="{% url 'main:profile_change' %}">Edit personal data</a>
-            <a class="dropdown-item" href="{% url 'main:password_change' %}">Change password</a>
-            <div class="dropdown-divider" ></div>
-                <a class="dropdown-iterm" href="{% url 'main:logout' %}">Logout</a>
-            <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Delete</a>
+<section>
+<div>
+    <ul class="horisontal-ul">
+        <li class="navabarmenu">
+            <a class="nav-link" href="{% url 'main:register' %}">Register</a>
+            {% if user.is_authenticated %}
+            <li class="navabarmenu"><a class="dropdown-iterm" href="{% url 'main:logout' %}">Logout</a></li>
+        <li class="navabarmenu">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href= "{% url 'main:profile' %}">My ADS</a>
+                    <a class="dropdown-item" href="{% url 'main:profile_change' %}">Edit personal data</a>
+                    <a class="dropdown-item" href="{% url 'main:password_change' %}">Change password</a>
+                    <div class="dropdown-divider" ></div>
+                </div>
+            </div>
+        </li>
     </li>
-        <div class="dropdown-menu"></div>
     {% else %}
     <li class="nav-item">
         <a class= "nav-link"
@@ -44,6 +45,8 @@
     {% endif %}
     </ul>
 </div>
+    </section>
+    </div>
 <div class="row">
     <nav class = "col-md-auto nav flex-column border">
     <a class= "nav-link root"

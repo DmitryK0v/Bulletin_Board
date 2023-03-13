@@ -1,14 +1,27 @@
 {% load static %}
+.background{
+    background : url('{% static "img/12.jpg" %}') center no-repeat;
+ }
 header h1 {
-    background : url('{% static "img/bg2.png" %}') left / auto 100% no-repeat, url('{% static "img/bg2.png" %}')
     right / auto 100% no-repeat;
 .root {
     font-size: larger;
 }
 }
 img.main-image{
-width: 300px;
+width: 100%;
 }
 img.additional-image {
 width:180px;
+}
+.navabarmenu {
+  display: inline-block;
+  background:  #696969;
+
+}
+
+a {
+  display: block;
+  padding: 8px;
+  color: #A52A2A;
 }
